@@ -4,7 +4,7 @@ import { WagmiAdapter } from '@reown/appkit-adapter-wagmi'
 
 // 1) Get your Project ID from https://dashboard.reown.com
 //    IMPORTANT: origin in metadata.url must match your dev/prod domain(s).
-const projectId = '2aca272d18deb10ff748260da5f78bfd'
+const projectId = '27c27c402b7d754e3074c78d11c4c0fc'
 
 // 2) Choose networks (Viem chains wrapped by Reown)
 export const networks = [mainnet, arbitrum]
