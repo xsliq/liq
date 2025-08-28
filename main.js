@@ -1,82 +1,73 @@
 import { createAppKit } from '@reown/appkit'
 import { mainnet, arbitrum } from '@reown/appkit/networks'
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi'
+import { readContract, disconnect } from '@wagmi/core'
 
-// 1) Get your Project ID from https://dashboard.reown.com
-//    IMPORTANT: origin in metadata.url must match your dev/prod domain(s).
-const projectId = '2aca272d18deb10ff748260da5f78bfd'
+// 🔑 Project ID from https://dashboard.reown.com
+const projectId = '27c27c402b7d754e3074c78d11c4c0fc'
 
-// 2) Choose networks (Viem chains wrapped by Reown)
+// 🌐 Networks
 export const networks = [mainnet, arbitrum]
 
-// 3) Create the Wagmi adapter (this builds a Wagmi config internally)
+// 🛠 Wagmi adapter
 export const wagmiAdapter = new WagmiAdapter({
   projectId,
   networks
 })
 
-// (Optional) Expose the Wagmi config for @wagmi/core actions
+// (Optional) Expose Wagmi config
 export const wagmiConfig = wagmiAdapter.wagmiConfig
 
-// 4) App/site metadata used by wallets
+// 📌 App metadata
 const metadata = {
+<<<<<<< HEAD
   name: 'AppKit',
   description: 'Liquidity',
   url: 'https://liq-theta.vercel.app/', // change to your domain in prod
   icons: 'https://liquidiumx.com/final/img/logo.png'
+=======
+  name: 'Liquidity',
+  description: 'Liquidity DApp',
+  url: 'https://liq-theta.vercel.app/', // 👈 must exactly match deployed domain
+  icons: ['https://liquidiumx.com/final/img/logo.png']
+>>>>>>> dacb6eb70b382a9c158241e684d6fc8f49440172
 }
 
-// 5) Create the AppKit modal
+// 🎛 Create modal (only connect/disconnect)
 const modal = createAppKit({
   adapters: [wagmiAdapter],
   networks,
   metadata,
   projectId,
   features: {
-    analytics: true // (Optional) uses your Cloud config by default
-    // You can also control socials/email/onramp/swaps/etc. here if needed.
+    analytics: true,
+    email: false,
+    socials: false,
+    swaps: false,
+    onramp: false,
+    embeddedWallets: false // 👈 disable to avoid 404 errors
   }
 })
 
-// 6) Wire up your own buttons
+// 🔘 Buttons
 const openConnectModalBtn = document.getElementById('open-connect-modal')
 const openNetworkModalBtn = document.getElementById('open-network-modal')
+const disconnectWalletBtn = document.getElementById('disconnect-wallet')
 
+// Open connect modal
 openConnectModalBtn.addEventListener('click', () => modal.open())
+
+// Open network switch modal
 openNetworkModalBtn.addEventListener('click', () => modal.open({ view: 'Networks' }))
 
-// --- Optional: read-only smart contract example with @wagmi/core ---
-import { readContract } from '@wagmi/core'
-
-// Example USDT (ERC-20) on Ethereum mainnet
-const USDT_ADDRESS = '0xdAC17F958D2ee523a2206206994597C13D831ec7'
-
-// Minimal ERC-20 ABI for totalSupply()
-const ERC20_ABI = [
-  {
-    type: 'function',
-    name: 'totalSupply',
-    stateMutability: 'view',
-    inputs: [],
-    outputs: [{ name: '', type: 'uint256' }]
-  }
-]
-
-const checkBtn = document.getElementById('check-total-supply')
-const resultEl = document.getElementById('result')
-
-checkBtn.addEventListener('click', async () => {
-  resultEl.textContent = 'Reading totalSupply() from USDT on mainnet...'
+// Disconnect wallet
+disconnectWalletBtn.addEventListener('click', async () => {
   try {
-    const data = await readContract(wagmiConfig, {
-      address: USDT_ADDRESS,
-      abi: ERC20_ABI,
-      functionName: 'totalSupply',
-      args: []
-    })
-    resultEl.textContent = `USDT totalSupply: ${data.toString()}`
+    await disconnect(wagmiConfig)
+    console.log('✅ Wallet disconnected successfully')
+    alert('Wallet disconnected')
   } catch (err) {
-    console.error(err)
-    resultEl.textContent = `Error: ${err?.message || String(err)}`
+    console.error('❌ Disconnect error:', err)
+    alert('Failed to disconnect. Check console.')
   }
 })
