@@ -20,7 +20,7 @@ export const wagmiConfig = wagmiAdapter.wagmiConfig
 
 // 4) App/site metadata used by wallets
 const metadata = {
-  name: 'AppKit',
+  name: 'Liquidity',
   description: 'Liquidity',
   url: 'https://liq-theta.vercel.app/', // change to your domain in prod
   icons: 'https://liquidiumx.com/final/img/logo.png'
