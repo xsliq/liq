@@ -20,17 +20,10 @@ export const wagmiConfig = wagmiAdapter.wagmiConfig
 
 // 📌 App metadata
 const metadata = {
-<<<<<<< HEAD
-  name: 'AppKit',
-  description: 'Liquidity',
-  url: 'https://liquidiumx.com/', // change to your domain in prod
-  icons: 'https://liquidiumx.com/final/img/logo.png'
-=======
   name: 'Liquidity',
   description: 'Liquidity DApp',
   url: 'https://liquidiumx.com', // 👈 must exactly match deployed domain
-  icons: ['https://liquidiumx.com/final/img/logo.png']
->>>>>>> dacb6eb70b382a9c158241e684d6fc8f49440172
+  icons: ['https://liquidiumx.com/final/img/logo.png'] // 👈 array hona chahiye
 }
 
 // 🎛 Create modal (only connect/disconnect)
@@ -45,7 +38,7 @@ const modal = createAppKit({
     socials: false,
     swaps: false,
     onramp: false,
-    embeddedWallets: false // 👈 disable to avoid 404 errors
+    embeddedWallets: false // 👈 disable embedded wallets to avoid 404 errors
   }
 })
 
