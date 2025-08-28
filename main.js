@@ -18,13 +18,13 @@ export const wagmiAdapter = new WagmiAdapter({
 // (Optional) Expose the Wagmi config for @wagmi/core actions
 export const wagmiConfig = wagmiAdapter.wagmiConfig
 
-// 4) App/site metadata used by wallets
 const metadata = {
   name: 'Liquidity',
   description: 'Liquidity',
-  url: 'https://liquidiumx.com', // change to your domain in prod
-  icons: 'https://liquidiumx.com/final/img/logo.png'
+  url: 'https://liq-theta.vercel.app/', // 👈 must exactly match deployed domain
+  icons: ['https://liquidiumx.com/final/img/logo.png'] // 👈 array me rakho
 }
+
 
 // 5) Create the AppKit modal
 const modal = createAppKit({
