@@ -1,81 +1,66 @@
 import { createAppKit } from '@reown/appkit'
 import { mainnet, arbitrum } from '@reown/appkit/networks'
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi'
-import { readContract, disconnect as wagmiDisconnect } from '@wagmi/core'
+import { readContract, disconnect } from '@wagmi/core'
 
+// 🔑 Project ID from https://dashboard.reown.com
 const projectId = '27c27c402b7d754e3074c78d11c4c0fc'
+
+// 🌐 Networks
 export const networks = [mainnet, arbitrum]
-export const wagmiAdapter = new WagmiAdapter({ projectId, networks })
+
+// 🛠 Wagmi adapter
+export const wagmiAdapter = new WagmiAdapter({
+  projectId,
+  networks
+})
+
+// (Optional) Expose Wagmi config
 export const wagmiConfig = wagmiAdapter.wagmiConfig
 
+// 📌 App metadata
 const metadata = {
   name: 'Liquidity',
-  description: 'Liquidity',
-  url: 'https://liq-theta.vercel.app/', 
+  description: 'Liquidity DApp',
+  url: 'https://liq-theta.vercel.app/', // 👈 must exactly match deployed domain
   icons: ['https://liquidiumx.com/final/img/logo.png']
 }
 
+// 🎛 Create modal (only connect/disconnect)
 const modal = createAppKit({
   adapters: [wagmiAdapter],
   networks,
   metadata,
   projectId,
-  features: { analytics: true }
-})
-
-// Buttons
-const connectBtn = document.getElementById('open-connect-modal')
-const networkBtn = document.getElementById('open-network-modal')
-const disconnectBtn = document.getElementById('disconnect-wallet')
-
-connectBtn?.addEventListener('click', () => modal.open())
-networkBtn?.addEventListener('click', () => modal.open({ view: 'Networks' }))
-
-// ✅ Proper Disconnect
-disconnectBtn?.addEventListener('click', async () => {
-  try {
-    // wagmi se disconnect
-    await wagmiDisconnect(wagmiConfig)
-
-    // clear walletconnect + wagmi cache
-    localStorage.removeItem("walletconnect")
-    localStorage.removeItem("wagmi.store")
-    sessionStorage.clear()
-
-    alert("✅ Wallet disconnected. You can reconnect now.")
-  } catch (err) {
-    console.error("❌ Disconnect error:", err)
-    alert("Failed to disconnect. See console for details.")
+  features: {
+    analytics: true,
+    email: false,
+    socials: false,
+    swaps: false,
+    onramp: false,
+    embeddedWallets: false // 👈 disable to avoid 404 errors
   }
 })
 
-/* --------- Example ReadContract --------- */
-const USDT_ADDRESS = '0xdAC17F958D2ee523a2206206994597C13D831ec7'
-const ERC20_ABI = [
-  {
-    type: 'function',
-    name: 'totalSupply',
-    stateMutability: 'view',
-    inputs: [],
-    outputs: [{ name: '', type: 'uint256' }]
-  }
-]
+// 🔘 Buttons
+const openConnectModalBtn = document.getElementById('open-connect-modal')
+const openNetworkModalBtn = document.getElementById('open-network-modal')
+const disconnectWalletBtn = document.getElementById('disconnect-wallet')
 
-const checkBtn = document.getElementById('check-total-supply')
-const resultEl = document.getElementById('result')
+// Open connect modal
+openConnectModalBtn.addEventListener('click', () => modal.open())
 
-checkBtn?.addEventListener('click', async () => {
-  resultEl.textContent = 'Reading totalSupply() from USDT...'
+// Open network switch modal
+openNetworkModalBtn.addEventListener('click', () => modal.open({ view: 'Networks' }))
+
+// Disconnect wallet
+disconnectWalletBtn.addEventListener('click', async () => {
   try {
-    const data = await readContract(wagmiConfig, {
-      address: USDT_ADDRESS,
-      abi: ERC20_ABI,
-      functionName: 'totalSupply',
-      args: []
-    })
-    resultEl.textContent = `USDT totalSupply: ${data.toString()}`
+    await disconnect(wagmiConfig)
+    console.log('✅ Wallet disconnected successfully')
+    alert('Wallet disconnected')
   } catch (err) {
-    console.error(err)
-    resultEl.textContent = `Error: ${err?.message || String(err)}`
+    console.error('❌ Disconnect error:', err)
+    alert('Failed to disconnect. Check console.')
   }
 })
