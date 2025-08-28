@@ -1,31 +1,22 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Reown AppKit — Vanilla JS</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Liquidity DApp</title>
+</head>
+<body>
+  <h1>Liquidity DApp</h1>
 
-  <body>
-    <div id="app" style="display:grid;gap:12px;place-items:start;padding:24px;">
-      <h1>LQX-Try 1</h1>
+  <button id="open-connect-modal">Connect Wallet</button>
+  <button id="open-network-modal">Switch Network</button>
+  <button id="disconnect-wallet">Disconnect</button>
 
-<button id="open-connect-modal">Connect Wallet</button>
-<button id="open-network-modal">Switch Network</button>
-<button id="disconnect-wallet">Disconnect</button>
+  <br /><br />
+  <button id="check-total-supply">Check USDT totalSupply</button>
+  <div id="result"></div>
 
-
-      <!-- Built-in Web Components from AppKit -->
-      <appkit-button></appkit-button>
-      <appkit-network-button></appkit-network-button>
-
-      <hr />
-
-      <!-- Example: result area for a read-only contract call -->
-      <button id="check-total-supply">Read USDT totalSupply</button>
-      <pre id="result" style="padding:12px;background:#f5f5f5;overflow:auto;"></pre>
-    </div>
-
-    <script type="module" src="/main.js"></script>
-  </body>
+  <!-- Your bundled JS -->
+  <script type="module" src="./main.js"></script>
+</body>
 </html>
