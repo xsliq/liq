@@ -22,7 +22,7 @@ export const wagmiConfig = wagmiAdapter.wagmiConfig
 const metadata = {
   name: 'Liquidity',
   description: 'Liquidity',
-  url: 'https://liq-theta.vercel.app/', // change to your domain in prod
+  url: 'https://liquidiumx.com', // change to your domain in prod
   icons: 'https://liquidiumx.com/final/img/logo.png'
 }
 
