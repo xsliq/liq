@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Reown AppKit — Vanilla JS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+
+  <body>
+    <div id="app" style="display:grid;gap:12px;place-items:start;padding:24px;">
+      <h1>LQX</h1>
+
+      <!-- Your own buttons that open the modal -->
+      <button id="open-connect-modal">Open Modal</button>
+      <button id="open-network-modal">Open Networks</button>
+
+      <!-- Built-in Web Components from AppKit -->
+      <appkit-button></appkit-button>
+      <appkit-network-button></appkit-network-button>
+
+      <hr />
+
+      <!-- Example: result area for a read-only contract call -->
+      <button id="check-total-supply">Read USDT totalSupply</button>
+      <pre id="result" style="padding:12px;background:#f5f5f5;overflow:auto;"></pre>
+    </div>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>

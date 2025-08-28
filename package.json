@@ -1,0 +1,21 @@
+{
+  "name": "reown-wagmi-js",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^7.1.2"
+  },
+  "dependencies": {
+    "@reown/appkit": "^1.8.1",
+    "@reown/appkit-adapter-wagmi": "^1.8.1",
+    "@wagmi/core": "^2.20.2",
+    "viem": "^2.36.0",
+    "wagmi": "^2.16.8"
+  }
+}
