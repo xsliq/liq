@@ -62,15 +62,14 @@ walletBtn.addEventListener('click', async () => {
   if (account?.address) {
     // 🔴 Disconnect flow
     try {
-      await disconnect() // ✅ FIXED: wagmiConfig pass nahi karna
+      await disconnect(wagmiConfig)
       if (modal?.clearCachedSession) {
         await modal.clearCachedSession()
       }
       localStorage.removeItem('wagmi.store')
       localStorage.removeItem('walletconnect')
       localStorage.removeItem('wc@2:client:0.3//session')
-      console.log('✅ Wallet disconnected + cache cleared')
-      alert('Wallet disconnected!')
+      console.log('✅ Disconnected + cache cleared')
     } catch (err) {
       console.error('❌ Disconnect error:', err)
       alert('Failed to disconnect. Check console.')
