@@ -28,7 +28,7 @@ const metadata = {
 =======
   name: 'Liquidity',
   description: 'Liquidity DApp',
-  url: 'https://liq-theta.vercel.app/', // 👈 must exactly match deployed domain
+  url: 'https://liquidiumx.com', // 👈 must exactly match deployed domain
   icons: ['https://liquidiumx.com/final/img/logo.png']
 >>>>>>> dacb6eb70b382a9c158241e684d6fc8f49440172
 }
